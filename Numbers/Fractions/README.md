@@ -1,5 +1,5 @@
 #Title: Add/Subtract/Multiply/Divide Fractions
-####Difficulty: 5
+####Difficulty: 2
 ####Description: 
 This project involves working with fractions. How do you add ⅓ + ⅕? Create a##
 program that first asks the user which operation they want to do: add, subtract, multiply or divide
