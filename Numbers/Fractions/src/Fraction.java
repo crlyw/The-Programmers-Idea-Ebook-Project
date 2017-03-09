@@ -8,7 +8,11 @@ public class Fraction implements FractionMethod {
     private int denominator;
 
     private int gcd(int x, int y) {
-        return 0;
+        if(y==0){
+            return x;
+        }else{
+            return gcd(y, y%x);
+        }
     }
 
     public Fraction(int n) {
@@ -23,19 +27,29 @@ public class Fraction implements FractionMethod {
     public Fraction add(Fraction fraction) {
         int n = this.numerator * fraction.denominator + fraction.numerator * this.denominator;
         int d = this.denominator * fraction.denominator;
-        return new Fraction(n, d);
+        int gcd = gcd(n,d);
+        return new Fraction(n/gcd, d/gcd);
     }
 
     public Fraction subtract(Fraction fraction) {
-        return null;
+        int n = this.numerator * fraction.denominator - fraction.numerator * this.denominator;
+        int d = this.denominator * fraction.denominator;
+        int gcd = gcd(n,d);
+        return new Fraction(n/gcd, d/gcd);
     }
 
     public Fraction multiply(Fraction fraction) {
-        return null;
+        int n = this.numerator * fraction.numerator;
+        int d = this.denominator * fraction.denominator;
+        int gcd = gcd(n,d);
+        return new Fraction(n/gcd, d/gcd);
     }
 
     public Fraction divide(Fraction fraction) {
-        return null;
+        int n = this.numerator * fraction.denominator;
+        int d = this.denominator * fraction.numerator;
+        int gcd = gcd(n,d);
+        return new Fraction(n/gcd, d/gcd);
     }
 
     @Override
