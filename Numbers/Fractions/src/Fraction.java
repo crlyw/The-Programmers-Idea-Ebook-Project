@@ -11,7 +11,7 @@ public class Fraction implements FractionMethod {
         if(y==0){
             return x;
         }else{
-            return gcd(y, y%x);
+            return gcd(y, x%y);
         }
     }
 
@@ -52,7 +52,6 @@ public class Fraction implements FractionMethod {
         return new Fraction(n/gcd, d/gcd);
     }
 
-    @Override
     public String toString() {
         if(this.denominator!=1){
             return this.numerator + "/" + this.denominator;
