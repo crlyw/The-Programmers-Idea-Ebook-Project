@@ -46,10 +46,13 @@ class Clock extends React.Component {
     }
 
     render() {
-        return ( <
-            div id = "clocktime" > {
-                this.state.currentTime
-            } < /div>
+        return (
+          <div className="wrapper">
+            <div className="clocktime">
+              <div className="clockIcon hvr-grow"></div>
+              {this.state.currentTime}
+            </div>
+          </div>
         )
     }
 }

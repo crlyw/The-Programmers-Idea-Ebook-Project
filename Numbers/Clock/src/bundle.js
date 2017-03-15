@@ -21695,69 +21695,78 @@ var React = __webpack_require__(80);
 var ReactDOM = __webpack_require__(79);
 
 var Clock = function (_React$Component) {
-  _inherits(Clock, _React$Component);
+    _inherits(Clock, _React$Component);
 
-  _createClass(Clock, [{
-    key: "getCurrentTime",
-    value: function getCurrentTime() {
-      var date = new Date();
-      var hours = date.getHours();
-      if (hours < 10) {
-        hours = "0" + hours;
-      }
-      var minutes = date.getMinutes();
-      if (minutes < 10) {
-        minutes = "0" + minutes;
-      }
-      var secounds = date.getSeconds();
-      if (secounds < 10) {
-        secounds = "0" + secounds;
-      }
-      var result = hours + ":" + minutes + ":" + secounds;
+    _createClass(Clock, [{
+        key: "getCurrentTime",
+        value: function getCurrentTime() {
+            var date = new Date();
+            var hours = date.getHours();
+            if (hours < 10) {
+                hours = "0" + hours;
+            }
+            var minutes = date.getMinutes();
+            if (minutes < 10) {
+                minutes = "0" + minutes;
+            }
+            var secounds = date.getSeconds();
+            if (secounds < 10) {
+                secounds = "0" + secounds;
+            }
+            var result = hours + ":" + minutes + ":" + secounds;
 
-      this.setState({ currentTime: result });
+            this.setState({
+                currentTime: result
+            });
+        }
+    }]);
+
+    function Clock() {
+        _classCallCheck(this, Clock);
+
+        var _this = _possibleConstructorReturn(this, (Clock.__proto__ || Object.getPrototypeOf(Clock)).call(this));
+
+        _this.state = {
+            currentTime: ""
+        };
+        return _this;
     }
-  }]);
 
-  function Clock() {
-    _classCallCheck(this, Clock);
+    _createClass(Clock, [{
+        key: "componentWillMount",
+        value: function componentWillMount() {
+            clearInterval(this.state.intervalId);
+            this.getCurrentTime();
+        }
+    }, {
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            var _this2 = this;
 
-    var _this = _possibleConstructorReturn(this, (Clock.__proto__ || Object.getPrototypeOf(Clock)).call(this));
+            var intervalId = setInterval(function () {
+                _this2.getCurrentTime();
+            }, 1000);
+            this.setState({
+                intervalId: intervalId
+            });
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            return React.createElement(
+                "div",
+                { className: "wrapper" },
+                React.createElement(
+                    "div",
+                    { className: "clocktime" },
+                    React.createElement("div", { className: "clockIcon hvr-grow" }),
+                    this.state.currentTime
+                )
+            );
+        }
+    }]);
 
-    _this.state = {
-      currentTime: ""
-    };
-    return _this;
-  }
-
-  _createClass(Clock, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      clearInterval(this.state.intervalId);
-      this.getCurrentTime();
-    }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      var intervalId = setInterval(function () {
-        _this2.getCurrentTime();
-      }, 1000);
-      this.setState({ intervalId: intervalId });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return React.createElement(
-        "div",
-        { id: "clocktime" },
-        this.state.currentTime
-      );
-    }
-  }]);
-
-  return Clock;
+    return Clock;
 }(React.Component);
 
 ReactDOM.render(React.createElement(Clock, null), document.getElementById("project"));
