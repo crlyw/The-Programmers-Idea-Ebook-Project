@@ -37,9 +37,14 @@ body{
   width: 500px;
 }
 
+.timeMeasurePicker
+{
+  position: absolute;
+}
+
 .clockIcon
 {
-  height: 75px;
+  height: 60px;
   width: 75px;
   background:url("../images/calendar.png");
   background-repeat: no-repeat;

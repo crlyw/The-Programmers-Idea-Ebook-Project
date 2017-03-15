@@ -21727,7 +21727,9 @@ var Clock = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Clock.__proto__ || Object.getPrototypeOf(Clock)).call(this));
 
         _this.state = {
-            currentTime: ""
+            currentTime: "",
+            clockSettingShow: false,
+            timeMeasure: false
         };
         return _this;
     }
@@ -21753,14 +21755,49 @@ var Clock = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
+            var settingsShow = this.state.clockSettingShow ? React.createElement(
+                "div",
+                null,
+                React.createElement(
+                    "h3",
+                    null,
+                    "Settings"
+                )
+            ) : "";
+
+            var timeMeasure = this.state.timeMeasure ? React.createElement(
+                "span",
+                null,
+                "AM"
+            ) : "";
             return React.createElement(
                 "div",
                 { className: "wrapper" },
                 React.createElement(
                     "div",
                     { className: "clocktime" },
-                    React.createElement("div", { className: "clockIcon hvr-grow" }),
-                    this.state.currentTime
+                    React.createElement(
+                        "div",
+                        { className: "timeMeasurePicker" },
+                        React.createElement(
+                            "button",
+                            { className: "timeMeasurePicker1" },
+                            "12"
+                        ),
+                        React.createElement(
+                            "button",
+                            { className: "timeMeasurePicker2" },
+                            "24"
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        null,
+                        React.createElement("div", { className: "clockIcon hvr-grow" }),
+                        this.state.currentTime,
+                        timeMeasure
+                    ),
+                    settingsShow
                 )
             );
         }

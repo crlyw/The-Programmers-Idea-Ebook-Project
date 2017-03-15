@@ -27,7 +27,9 @@ class Clock extends React.Component {
     constructor() {
         super();
         this.state = {
-            currentTime: ""
+            currentTime: "",
+            clockSettingShow:false,
+            timeMeasure:false
         };
     };
 
@@ -46,15 +48,36 @@ class Clock extends React.Component {
     }
 
     render() {
+        const settingsShow = this.state.clockSettingShow?
+        <div>
+          <h3>Settings</h3>
+        </div>
+        :
+        "";
+
+        const timeMeasure = this.state.timeMeasure?
+        <span>
+          AM
+        </span>
+        :
+        "";
         return (
           <div className="wrapper">
             <div className="clocktime">
-              <div className="clockIcon hvr-grow"></div>
-              {this.state.currentTime}
+              <div className="timeMeasurePicker">
+                <button className="timeMeasurePicker1">12</button>
+                <button className="timeMeasurePicker2">24</button>
+              </div>
+              <div>
+                <div className="clockIcon hvr-grow"></div>
+                {this.state.currentTime}
+                {timeMeasure}
+              </div>
+              {settingsShow}
             </div>
           </div>
         )
     }
 }
 
-ReactDOM.render( < Clock / > , document.getElementById("project"));
+ReactDOM.render( < Clock / >,document.getElementById("project"));
