@@ -15,6 +15,6 @@ numerator from its denominator. You could also do this using a custom fraction c
 
 #### Accomplishment
 I only use simple Java object to create this small program, the baseic operation for Fraction is
-add, subtract, multiply or divide, it could be more complex as fraction have many restrictions, but
+add, subtract, multiply or divide, it could be more complex as fractions have many restrictions, but
 since it is only a small program, I won't care that too much.
 
