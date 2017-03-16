@@ -73,6 +73,53 @@ span:hover
   margin-top: 15px;
 }
 
+.clockIcon:hover .tooltiptext {
+    visibility: visible;
+    top: 20px;
+    right: 110%;
+    opacity: 1;
+}
+
+.clockIcon .tooltiptext {
+    visibility: hidden;
+    font-size: 12px;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    text-shadow: none;
+    font-family: 'Lato', serif;
+    /*Animation to show and hide*/
+    transition: all 0.5s linear;
+    top: 20px;
+    right: 70%;
+    opacity: 0;
+}
+
+/*left tooltips*/
+/*
+.clockIcon .tooltiptext {
+    top: 20px;
+    right: 110%;
+}
+*/
+
+/*right arrow*/
+.clockIcon .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 100%; /* To the right of the tooltip */
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent black;
+}
+
 .clockIcon:hover
 {
   cursor:pointer;

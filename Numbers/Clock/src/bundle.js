@@ -21709,8 +21709,9 @@ var Clock = function (_React$Component) {
                     this.state.isTwelveHoursAM = false;
                     hours = hours - 12;
                 } else {
-                    hours = hours - 12;
-                    hours = "0" + hours;
+                    if (hours < 10) {
+                        hours = "0" + hours;
+                    }
                 }
             }
             var minutes = date.getMinutes();
@@ -21837,7 +21838,15 @@ var Clock = function (_React$Component) {
                     React.createElement(
                         "div",
                         null,
-                        React.createElement("div", { className: "clockIcon hvr-grow" }),
+                        React.createElement(
+                            "div",
+                            { className: "clockIcon hvr-grow" },
+                            React.createElement(
+                                "span",
+                                { className: "tooltiptext" },
+                                "Click and set Alarm"
+                            )
+                        ),
                         this.state.currentTime,
                         timeMeasure
                     ),

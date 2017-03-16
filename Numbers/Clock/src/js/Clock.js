@@ -13,8 +13,9 @@ class Clock extends React.Component {
               this.state.isTwelveHoursAM = false;
               hours = hours-12;
             }else{
-              hours = hours-12;
-              hours = "0" + hours;
+              if(hours<10){
+                hours = "0" + hours;
+              }
             }
         }
         var minutes = date.getMinutes();
@@ -101,7 +102,9 @@ class Clock extends React.Component {
                 <span id="picker2" href="#" className="timeMeasurePicker2" onClick={this.timeMeasurePicker2StyleChange.bind(this)}>24</span>
               </div>
               <div>
-                <div className="clockIcon hvr-grow"></div>
+                <div className="clockIcon hvr-grow">
+                  <span className="tooltiptext">Click and set Alarm</span>
+                </div>
                 {this.state.currentTime}
                 {timeMeasure}
               </div>
