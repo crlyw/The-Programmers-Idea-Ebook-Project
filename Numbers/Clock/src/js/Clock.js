@@ -6,8 +6,16 @@ class Clock extends React.Component {
     getCurrentTime() {
         var date = new Date();
         var hours = date.getHours();
-        if (hours < 10) {
+        if (hours < 10 && this.state.isTwentyFourHours) {
             hours = "0" + hours;
+        }else if(!this.state.isTwentyFourHours){
+            if(hours-12>=0){
+              this.state.isTwelveHoursAM = false;
+              hours = hours-12;
+            }else{
+              hours = hours-12;
+              hours = "0" + hours;
+            }
         }
         var minutes = date.getMinutes();
         if (minutes < 10) {
@@ -29,7 +37,8 @@ class Clock extends React.Component {
         this.state = {
             currentTime: "",
             clockSettingShow:false,
-            timeMeasure:false
+            isTwentyFourHours:true,
+            isTwelveHoursAM:true
         };
     };
 
@@ -45,6 +54,33 @@ class Clock extends React.Component {
         this.setState({
             intervalId: intervalId
         });
+        this.timeMeasurePicker2StyleChange();
+    }
+
+    timeMeasurePicker1StyleChange(){
+        var timeMeasurePicker1 = document.getElementById("picker1");
+        var timeMeasurePicker2 = document.getElementById("picker2");
+        timeMeasurePicker1.style.opacity = 1;
+        timeMeasurePicker2.style.opacity = 0.3;
+        this.setState({isTwentyFourHours:false});
+    }
+
+    timeMeasurePicker2StyleChange(){
+      var timeMeasurePicker1 = document.getElementById("picker1");
+      var timeMeasurePicker2 = document.getElementById("picker2");
+      timeMeasurePicker1.style.opacity = 0.3;
+      timeMeasurePicker2.style.opacity = 1;
+      this.setState({isTwentyFourHours:true});
+    }
+
+    timeJudge(){
+      if(this.state.isTwentyFourHours){
+        return "";
+      }else if(!this.state.isTwentyFourHours && this.state.isTwelveHoursAM){
+        return <i>AM</i>
+      }else{
+        return <i>PM</i>
+      }
     }
 
     render() {
@@ -55,18 +91,14 @@ class Clock extends React.Component {
         :
         "";
 
-        const timeMeasure = this.state.timeMeasure?
-        <span>
-          AM
-        </span>
-        :
-        "";
+        const timeMeasure = this.timeJudge();
+
         return (
           <div className="wrapper">
             <div className="clocktime">
               <div className="timeMeasurePicker">
-                <button className="timeMeasurePicker1">12</button>
-                <button className="timeMeasurePicker2">24</button>
+                <span id="picker1" href="#" className="timeMeasurePicker1" onClick={this.timeMeasurePicker1StyleChange.bind(this)}>12</span>
+                <span id="picker2" href="#" className="timeMeasurePicker2" onClick={this.timeMeasurePicker2StyleChange.bind(this)}>24</span>
               </div>
               <div>
                 <div className="clockIcon hvr-grow"></div>

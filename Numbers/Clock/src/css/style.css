@@ -40,16 +40,42 @@ body{
 .timeMeasurePicker
 {
   position: absolute;
+  left:0px;
+  top:5px;
+}
+
+span
+{
+  display:inline-block;
+  font-size: 15px;
+  padding: 3px 3px;
+  text-align: center;
+  border-radius:5px;
+  text-decoration: none;
+  float: left;
+  margin-left: 6px;
+  font-weight: bold;
+}
+
+span:hover
+{
+  cursor:pointer;
 }
 
 .clockIcon
 {
-  height: 60px;
+  height: 65px;
   width: 75px;
   background:url("../images/calendar.png");
   background-repeat: no-repeat;
   background-size: contain;
   float: left;
+  margin-top: 15px;
+}
+
+.clockIcon:hover
+{
+  cursor:pointer;
 }
 
 .clocktime
@@ -57,10 +83,21 @@ body{
   width: auto;
   font-family:'sa-digital-number';
   font-size: 60px;
-  text-shadow:#757575 1px 2px 5px !important;
-  color:rgb(111,195,223);
+  text-shadow:#80cbc4 2px 3px 5px !important;
+  color:#00897b;
   font-weight: bold;
   border:  3px solid #fff!important;
   border-radius: 10px!important;
   padding: 10px;
+  position: relative;
+}
+
+i
+{
+  font-size: 15px;
+  display: block;
+  position: absolute;
+  right: 5px;
+  bottom: 16px;
+  font-style: normal;
 }
