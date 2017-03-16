@@ -1,76 +1,75 @@
-@font-face{
- font-family:'sa-digital-number';
- src: url('../fonts/digital-numbers-font-gh-pages/dist/DigitalNumbers-Regular.ttf');
+@font-face {
+    font-family: 'sa-digital-number';
+    src: url('../fonts/digital-numbers-font-gh-pages/dist/DigitalNumbers-Regular.ttf');
 }
 
-@font-face{
- font-family:'Komoda-heading';
- src: url('../fonts/Komoda/Komoda.otf');
+@font-face {
+    font-family: 'Komoda-heading';
+    src: url('../fonts/Komoda/Komoda.otf');
 }
 
-body{
-  background: url("../images/backgroundImage.jpg");
+body {
+    background: url("../images/backgroundImage.jpg");
 }
 
-.title
-{
-  color:#f5f5f5;
-  font-family:'Komoda-heading';
-  font-size: 150px;
-  width: 600px;
-  margin: auto;
-  padding-left: 280px;
-  padding-top: 100px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  opacity: 0.8;
+.title {
+    color: #f5f5f5;
+    font-family: 'Komoda-heading';
+    font-size: 150px;
+    width: 600px;
+    margin: auto;
+    padding-left: 280px;
+    padding-top: 100px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    opacity: 0.8;
 }
 
-.wrapper{
-  margin: auto;
-  margin-top: 50px;
-  border:  3px solid #fff!important;
-  border-radius: 15px!important;
-  padding: 10px;
-  width: 500px;
+.wrapper {
+    margin: auto;
+    margin-top: 50px;
+    border: 3px solid #fff!important;
+    border-radius: 15px!important;
+    padding: 10px;
+    width: 500px;
 }
 
-.timeMeasurePicker
-{
-  position: absolute;
-  left:0px;
-  top:5px;
+.timeMeasurePicker {
+    position: absolute;
+    left: 0px;
+    top: 5px;
 }
 
-span
-{
-  display:inline-block;
-  font-size: 15px;
-  padding: 3px 3px;
-  text-align: center;
-  border-radius:5px;
-  text-decoration: none;
-  float: left;
-  margin-left: 6px;
-  font-weight: bold;
+span {
+    display: inline-block;
+    font-size: 15px;
+    padding: 3px 3px;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    float: left;
+    margin-left: 6px;
+    font-weight: bold;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-span:hover
-{
-  cursor:pointer;
+span:hover {
+    cursor: pointer;
 }
 
-.clockIcon
-{
-  height: 65px;
-  width: 75px;
-  background:url("../images/calendar.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  float: left;
-  margin-top: 15px;
+.clockIcon {
+    height: 65px;
+    width: 75px;
+    background: url("../images/calendar.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    float: left;
+    margin-top: 15px;
 }
 
 .clockIcon:hover .tooltiptext {
@@ -100,51 +99,118 @@ span:hover
     opacity: 0;
 }
 
-/*left tooltips*/
-/*
-.clockIcon .tooltiptext {
-    top: 20px;
-    right: 110%;
-}
-*/
-
-/*right arrow*/
 .clockIcon .tooltiptext::after {
     content: " ";
     position: absolute;
     top: 50%;
-    left: 100%; /* To the right of the tooltip */
+    left: 100%;
+    /* To the right of the tooltip */
     margin-top: -5px;
     border-width: 5px;
     border-style: solid;
     border-color: transparent transparent transparent black;
 }
 
-.clockIcon:hover
-{
-  cursor:pointer;
+.clockIcon:hover {
+    cursor: pointer;
 }
 
-.clocktime
-{
-  width: auto;
-  font-family:'sa-digital-number';
-  font-size: 60px;
-  text-shadow:#80cbc4 2px 3px 5px !important;
-  color:#00897b;
-  font-weight: bold;
-  border:  3px solid #fff!important;
-  border-radius: 10px!important;
-  padding: 10px;
-  position: relative;
+.clocktime {
+    width: auto;
+    font-family: 'sa-digital-number';
+    font-size: 60px;
+    text-shadow: #80cbc4 2px 3px 5px !important;
+    color: #00897b;
+    font-weight: bold;
+    border: 3px solid #fff!important;
+    border-radius: 10px!important;
+    padding: 10px;
+    position: relative;
 }
 
-i
-{
-  font-size: 15px;
-  display: block;
-  position: absolute;
-  right: 5px;
-  bottom: 16px;
-  font-style: normal;
+i {
+    font-size: 15px;
+    display: block;
+    position: absolute;
+    right: 5px;
+    bottom: 16px;
+    font-style: normal;
+}
+
+.timeMeasurePicker1:hover .tooltiptext {
+    visibility: visible;
+    bottom: 120%;
+    left: -60%;
+    opacity: 1;
+}
+
+.timeMeasurePicker1 .tooltiptext {
+    visibility: hidden;
+    font-size: 12px;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    text-shadow: none;
+    font-family: 'Lato', serif;
+    /*Animation to show and hide*/
+    transition: all 0.3s linear;
+    bottom: 150%;
+    left: -60%;
+    opacity: 0;
+}
+
+.timeMeasurePicker1 .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 100%;
+    /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.timeMeasurePicker2:hover .tooltiptext {
+    visibility: visible;
+    bottom: 120%;
+    left: -10%;
+    opacity: 1;
+}
+
+.timeMeasurePicker2 .tooltiptext {
+    visibility: hidden;
+    font-size: 12px;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    text-shadow: none;
+    font-family: 'Lato', serif;
+    /*Animation to show and hide*/
+    transition: all 0.3s linear;
+    bottom: 150%;
+    left: -10%;
+    opacity: 0;
+}
+
+.timeMeasurePicker2 .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 100%;
+    /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
 }

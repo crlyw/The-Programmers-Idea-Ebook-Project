@@ -21708,6 +21708,9 @@ var Clock = function (_React$Component) {
                 if (hours - 12 >= 0) {
                     this.state.isTwelveHoursAM = false;
                     hours = hours - 12;
+                    if (hours < 10) {
+                        hours = "0" + hours;
+                    }
                 } else {
                     if (hours < 10) {
                         hours = "0" + hours;
@@ -21768,8 +21771,12 @@ var Clock = function (_React$Component) {
         value: function timeMeasurePicker1StyleChange() {
             var timeMeasurePicker1 = document.getElementById("picker1");
             var timeMeasurePicker2 = document.getElementById("picker2");
+            var picker1ToolTip = document.getElementById("picker1ToolTip");
+            var picker2ToolTip = document.getElementById("picker2ToolTip");
             timeMeasurePicker1.style.opacity = 1;
             timeMeasurePicker2.style.opacity = 0.3;
+            picker1ToolTip.style.opacity = 1;
+            picker2ToolTip.style.opacity = 1;
             this.setState({ isTwentyFourHours: false });
         }
     }, {
@@ -21777,8 +21784,12 @@ var Clock = function (_React$Component) {
         value: function timeMeasurePicker2StyleChange() {
             var timeMeasurePicker1 = document.getElementById("picker1");
             var timeMeasurePicker2 = document.getElementById("picker2");
+            var picker1ToolTip = document.getElementById("picker1ToolTip");
+            var picker2ToolTip = document.getElementById("picker2ToolTip");
             timeMeasurePicker1.style.opacity = 0.3;
             timeMeasurePicker2.style.opacity = 1;
+            picker1ToolTip.style.opacity = 1;
+            picker2ToolTip.style.opacity = 1;
             this.setState({ isTwentyFourHours: true });
         }
     }, {
@@ -21827,12 +21838,22 @@ var Clock = function (_React$Component) {
                         React.createElement(
                             "span",
                             { id: "picker1", href: "#", className: "timeMeasurePicker1", onClick: this.timeMeasurePicker1StyleChange.bind(this) },
-                            "12"
+                            "12",
+                            React.createElement(
+                                "span",
+                                { id: "picker1ToolTip", className: "tooltiptext" },
+                                "12 Hours Time Set"
+                            )
                         ),
                         React.createElement(
                             "span",
                             { id: "picker2", href: "#", className: "timeMeasurePicker2", onClick: this.timeMeasurePicker2StyleChange.bind(this) },
-                            "24"
+                            "24",
+                            React.createElement(
+                                "span",
+                                { id: "picker2ToolTip", className: "tooltiptext" },
+                                "24 Hours Time Set"
+                            )
                         )
                     ),
                     React.createElement(

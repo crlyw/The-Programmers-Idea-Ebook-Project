@@ -12,6 +12,9 @@ class Clock extends React.Component {
             if(hours-12>=0){
               this.state.isTwelveHoursAM = false;
               hours = hours-12;
+              if(hours<10){
+                hours = "0" + hours;
+              }
             }else{
               if(hours<10){
                 hours = "0" + hours;
@@ -61,17 +64,25 @@ class Clock extends React.Component {
     timeMeasurePicker1StyleChange(){
         var timeMeasurePicker1 = document.getElementById("picker1");
         var timeMeasurePicker2 = document.getElementById("picker2");
+        var picker1ToolTip = document.getElementById("picker1ToolTip");
+        var picker2ToolTip = document.getElementById("picker2ToolTip");
         timeMeasurePicker1.style.opacity = 1;
         timeMeasurePicker2.style.opacity = 0.3;
+        picker1ToolTip.style.opacity = 1;
+        picker2ToolTip.style.opacity = 1;
         this.setState({isTwentyFourHours:false});
     }
 
     timeMeasurePicker2StyleChange(){
-      var timeMeasurePicker1 = document.getElementById("picker1");
-      var timeMeasurePicker2 = document.getElementById("picker2");
-      timeMeasurePicker1.style.opacity = 0.3;
-      timeMeasurePicker2.style.opacity = 1;
-      this.setState({isTwentyFourHours:true});
+        var timeMeasurePicker1 = document.getElementById("picker1");
+        var timeMeasurePicker2 = document.getElementById("picker2");
+        var picker1ToolTip = document.getElementById("picker1ToolTip");
+        var picker2ToolTip = document.getElementById("picker2ToolTip");
+        timeMeasurePicker1.style.opacity = 0.3;
+        timeMeasurePicker2.style.opacity = 1;
+        picker1ToolTip.style.opacity = 1;
+        picker2ToolTip.style.opacity = 1;
+        this.setState({isTwentyFourHours:true});
     }
 
     timeJudge(){
@@ -98,8 +109,14 @@ class Clock extends React.Component {
           <div className="wrapper">
             <div className="clocktime">
               <div className="timeMeasurePicker">
-                <span id="picker1" href="#" className="timeMeasurePicker1" onClick={this.timeMeasurePicker1StyleChange.bind(this)}>12</span>
-                <span id="picker2" href="#" className="timeMeasurePicker2" onClick={this.timeMeasurePicker2StyleChange.bind(this)}>24</span>
+                <span id="picker1" href="#" className="timeMeasurePicker1" onClick={this.timeMeasurePicker1StyleChange.bind(this)}>
+                  12
+                  <span id="picker1ToolTip" className="tooltiptext">12 Hours Time Set</span>
+                </span>
+                <span id="picker2" href="#" className="timeMeasurePicker2" onClick={this.timeMeasurePicker2StyleChange.bind(this)}>
+                  24
+                  <span id="picker2ToolTip" className="tooltiptext">24 Hours Time Set</span>
+                </span>
               </div>
               <div>
                 <div className="clockIcon hvr-grow">
