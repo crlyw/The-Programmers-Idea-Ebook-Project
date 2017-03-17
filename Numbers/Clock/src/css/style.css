@@ -126,6 +126,10 @@ span:hover {
     border-radius: 10px!important;
     padding: 10px;
     position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 i {
@@ -133,7 +137,7 @@ i {
     display: block;
     position: absolute;
     right: 5px;
-    bottom: 16px;
+    top: 60px;
     font-style: normal;
 }
 

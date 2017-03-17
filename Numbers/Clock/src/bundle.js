@@ -21694,35 +21694,276 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var React = __webpack_require__(80);
 var ReactDOM = __webpack_require__(79);
 
-var TimePicker = function (_React$Component) {
-  _inherits(TimePicker, _React$Component);
+var Clock = function (_React$Component) {
+  _inherits(Clock, _React$Component);
 
-  function TimePicker() {
-    _classCallCheck(this, TimePicker);
+  _createClass(Clock, [{
+    key: "getCurrentTime",
+    value: function getCurrentTime() {
+      var date = new Date();
+      var hours = date.getHours();
+      if (hours < 10 && this.state.isTwentyFourHours) {
+        hours = "0" + hours;
+      } else if (!this.state.isTwentyFourHours) {
+        if (hours - 12 >= 0) {
+          this.state.isTwelveHoursAM = false;
+          hours = hours - 12;
+          if (hours < 10) {
+            hours = "0" + hours;
+          }
+        } else {
+          if (hours < 10) {
+            hours = "0" + hours;
+          }
+        }
+      }
+      var minutes = date.getMinutes();
+      if (minutes < 10) {
+        minutes = "0" + minutes;
+      }
+      var secounds = date.getSeconds();
+      if (secounds < 10) {
+        secounds = "0" + secounds;
+      }
+      var result = hours + ":" + minutes + ":" + secounds;
 
-    return _possibleConstructorReturn(this, (TimePicker.__proto__ || Object.getPrototypeOf(TimePicker)).apply(this, arguments));
+      this.setState({
+        currentTime: result
+      });
+    }
+  }]);
+
+  function Clock() {
+    _classCallCheck(this, Clock);
+
+    var _this = _possibleConstructorReturn(this, (Clock.__proto__ || Object.getPrototypeOf(Clock)).call(this));
+
+    _this.state = {
+      currentTime: "",
+      clockSettingShow: false,
+      isTwentyFourHours: true,
+      isTwelveHoursAM: true,
+      isTimerPickerShowed: false
+    };
+    return _this;
   }
 
-  _createClass(TimePicker, [{
+  _createClass(Clock, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      clearInterval(this.state.intervalId);
+      this.getCurrentTime();
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var intervalId = setInterval(function () {
+        _this2.getCurrentTime();
+      }, 1000);
+      this.setState({
+        intervalId: intervalId
+      });
+      this.timeMeasurePicker2StyleChange();
+    }
+  }, {
+    key: "timeMeasurePicker1StyleChange",
+    value: function timeMeasurePicker1StyleChange() {
+      var timeMeasurePicker1 = document.getElementById("picker1");
+      var timeMeasurePicker2 = document.getElementById("picker2");
+      var picker1ToolTip = document.getElementById("picker1ToolTip");
+      var picker2ToolTip = document.getElementById("picker2ToolTip");
+      timeMeasurePicker1.style.opacity = 1;
+      timeMeasurePicker2.style.opacity = 0.3;
+      picker1ToolTip.style.opacity = 1;
+      picker2ToolTip.style.opacity = 1;
+      this.setState({ isTwentyFourHours: false });
+    }
+  }, {
+    key: "timeMeasurePicker2StyleChange",
+    value: function timeMeasurePicker2StyleChange() {
+      var timeMeasurePicker1 = document.getElementById("picker1");
+      var timeMeasurePicker2 = document.getElementById("picker2");
+      var picker1ToolTip = document.getElementById("picker1ToolTip");
+      var picker2ToolTip = document.getElementById("picker2ToolTip");
+      timeMeasurePicker1.style.opacity = 0.3;
+      timeMeasurePicker2.style.opacity = 1;
+      picker1ToolTip.style.opacity = 1;
+      picker2ToolTip.style.opacity = 1;
+      this.setState({ isTwentyFourHours: true });
+    }
+  }, {
+    key: "timeJudge",
+    value: function timeJudge() {
+      if (this.state.isTwentyFourHours) {
+        return "";
+      } else if (!this.state.isTwentyFourHours && this.state.isTwelveHoursAM) {
+        return React.createElement(
+          "i",
+          null,
+          "AM"
+        );
+      } else {
+        return React.createElement(
+          "i",
+          null,
+          "PM"
+        );
+      }
+    }
+  }, {
+    key: "popUpTimePicker",
+    value: function popUpTimePicker() {
+      if (!this.state.isTimerPickerShowed) {
+        document.getElementById("timePickerPopup").style.visibility = "visible";
+        document.getElementById("timePickerPopup").style.opacity = 1;
+        this.setState({ isTimerPickerShowed: true });
+      } else {
+        document.getElementById("timePickerPopup").style.visibility = "hidden";
+        document.getElementById("timePickerPopup").style.opacity = 0;
+        this.setState({ isTimerPickerShowed: false });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
+      var settingsShow = this.state.clockSettingShow ? React.createElement(
+        "div",
+        null,
+        React.createElement(
+          "h3",
+          null,
+          "Settings"
+        )
+      ) : "";
+
+      var timeMeasure = this.timeJudge();
+
       return React.createElement(
         "div",
-        { className: "timePickerWrapper" },
+        { className: "wrapper" },
         React.createElement(
           "div",
-          { className: "timePickerHeading" },
-          "Time Picker"
-        ),
-        React.createElement("div", { className: "timePickerContent" })
+          { className: "clocktime" },
+          React.createElement(
+            "div",
+            { className: "timeMeasurePicker" },
+            React.createElement(
+              "span",
+              { id: "picker1", href: "#", className: "timeMeasurePicker1", onClick: this.timeMeasurePicker1StyleChange.bind(this) },
+              "12",
+              React.createElement(
+                "span",
+                { id: "picker1ToolTip", className: "tooltiptext" },
+                "12 Hours Time Set"
+              )
+            ),
+            React.createElement(
+              "span",
+              { id: "picker2", href: "#", className: "timeMeasurePicker2", onClick: this.timeMeasurePicker2StyleChange.bind(this) },
+              "24",
+              React.createElement(
+                "span",
+                { id: "picker2ToolTip", className: "tooltiptext" },
+                "24 Hours Time Set"
+              )
+            )
+          ),
+          React.createElement(
+            "div",
+            null,
+            React.createElement(
+              "div",
+              { className: "clockIcon hvr-grow", onClick: this.popUpTimePicker.bind(this) },
+              React.createElement(
+                "span",
+                { className: "tooltiptext" },
+                "Click and set Alarm"
+              )
+            ),
+            this.state.currentTime,
+            timeMeasure
+          ),
+          React.createElement(
+            "div",
+            { id: "timePickerPopup", className: "timePickerWrapper" },
+            React.createElement(
+              "div",
+              { className: "timePickerHeading" },
+              "Time Picker"
+            ),
+            React.createElement(
+              "div",
+              { className: "timePickerContent" },
+              React.createElement(
+                "div",
+                { className: "hour picker" },
+                React.createElement(
+                  "div",
+                  { className: "hourUpArrow" },
+                  React.createElement("div", { className: "upArrow" })
+                ),
+                React.createElement(
+                  "div",
+                  { className: "hourText text" },
+                  "00"
+                ),
+                React.createElement(
+                  "div",
+                  { className: "hourDownArrow" },
+                  React.createElement("div", { className: "downArrow" })
+                )
+              ),
+              React.createElement(
+                "div",
+                { className: "minute picker" },
+                React.createElement(
+                  "div",
+                  { className: "minuteUpArrow" },
+                  React.createElement("div", { className: "upArrow" })
+                ),
+                React.createElement(
+                  "div",
+                  { className: "minuteText text" },
+                  "00"
+                ),
+                React.createElement(
+                  "div",
+                  { className: "minuteDownArrow" },
+                  React.createElement("div", { className: "downArrow" })
+                )
+              ),
+              React.createElement(
+                "div",
+                { className: "hourClock picker" },
+                React.createElement(
+                  "div",
+                  { className: "hourClockUpArrow" },
+                  React.createElement("div", { className: "upArrow" })
+                ),
+                React.createElement(
+                  "div",
+                  { className: "hourClockText text" },
+                  "AM"
+                ),
+                React.createElement(
+                  "div",
+                  { className: "hourClockDownArrow" },
+                  React.createElement("div", { className: "downArrow" })
+                )
+              )
+            )
+          )
+        )
       );
     }
   }]);
 
-  return TimePicker;
+  return Clock;
 }(React.Component);
 
-ReactDOM.render(React.createElement(TimePicker, null), document.getElementById("project"));
+ReactDOM.render(React.createElement(Clock, null), document.getElementById("project"));
 
 /***/ })
 /******/ ]);

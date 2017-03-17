@@ -42,7 +42,8 @@ class Clock extends React.Component {
             currentTime: "",
             clockSettingShow:false,
             isTwentyFourHours:true,
-            isTwelveHoursAM:true
+            isTwelveHoursAM:true,
+            isTimerPickerShowed:false
         };
     };
 
@@ -95,6 +96,18 @@ class Clock extends React.Component {
       }
     }
 
+    popUpTimePicker(){
+      if(!this.state.isTimerPickerShowed){
+        document.getElementById("timePickerPopup").style.visibility="visible";
+        document.getElementById("timePickerPopup").style.opacity=1;
+        this.setState({isTimerPickerShowed:true});
+      }else{
+        document.getElementById("timePickerPopup").style.visibility="hidden";
+        document.getElementById("timePickerPopup").style.opacity=0;
+        this.setState({isTimerPickerShowed:false});
+      }
+    }
+
     render() {
         const settingsShow = this.state.clockSettingShow?
         <div>
@@ -104,6 +117,7 @@ class Clock extends React.Component {
         "";
 
         const timeMeasure = this.timeJudge();
+
 
         return (
           <div className="wrapper">
@@ -119,18 +133,52 @@ class Clock extends React.Component {
                 </span>
               </div>
               <div>
-                <div className="clockIcon hvr-grow">
+                <div className="clockIcon hvr-grow" onClick={this.popUpTimePicker.bind(this)}>
                   <span className="tooltiptext">Click and set Alarm</span>
                 </div>
                 {this.state.currentTime}
                 {timeMeasure}
               </div>
-              {settingsShow}
+              <div id="timePickerPopup" className="timePickerWrapper">
+                <div className="timePickerHeading">Time Picker</div>
+                <div className="timePickerContent">
+
+                  <div className="hour picker">
+                    <div className="hourUpArrow">
+                      <div className="upArrow"></div>
+                    </div>
+                    <div className="hourText text">00</div>
+                    <div className="hourDownArrow">
+                      <div className="downArrow"></div>
+                    </div>
+                  </div>
+
+                  <div className="minute picker">
+                    <div className="minuteUpArrow">
+                      <div className="upArrow"></div>
+                    </div>
+                    <div className="minuteText text">00</div>
+                    <div className="minuteDownArrow">
+                      <div className="downArrow"></div>
+                    </div>
+                  </div>
+
+                  <div className="hourClock picker">
+                    <div className="hourClockUpArrow">
+                      <div className="upArrow"></div>
+                    </div>
+                    <div className="hourClockText text">AM</div>
+                    <div className="hourClockDownArrow">
+                      <div className="downArrow"></div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
             </div>
           </div>
         )
     }
 }
-{/*
+
 ReactDOM.render( < Clock / >,document.getElementById("project"));
-*/}
