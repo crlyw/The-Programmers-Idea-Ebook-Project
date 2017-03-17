@@ -3,7 +3,7 @@ var path = require("path");
 
 module.exports = {
     context: __dirname + "/src",
-    entry:"./js/Clock.js",
+    entry:"./js/TimePicker.js",
     module:{
         loaders:[
             {
