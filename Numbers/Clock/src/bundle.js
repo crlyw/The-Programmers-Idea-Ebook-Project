@@ -21746,7 +21746,8 @@ var Clock = function (_React$Component) {
       isTimerPickerShowed: false,
       hoursSetting: "00",
       minutesSetting: "00",
-      twelveHourSetting: "AM"
+      twelveHourSetting: "AM",
+      clockTime: ""
     };
     return _this;
   }
@@ -21835,7 +21836,7 @@ var Clock = function (_React$Component) {
     value: function addHours() {
       document.getElementById("hourDownArrow").style.borderTop = "15px solid #000";
       var hours = parseInt(this.state.hoursSetting);
-      if (hours === 23) {
+      if (hours === 11) {
         document.getElementById("hourUpArrow").style.borderBottom = "15px solid #9e9e9e";
         return;
       }
@@ -21845,7 +21846,7 @@ var Clock = function (_React$Component) {
       } else {
         hours = "" + hours;
       }
-      if (parseInt(hours) === 23) {
+      if (parseInt(hours) === 11) {
         document.getElementById("hourUpArrow").style.borderBottom = "15px solid #9e9e9e";
         this.setState({ hoursSetting: hours });
         return;
@@ -21943,6 +21944,36 @@ var Clock = function (_React$Component) {
       this.setState({ twelveHourSetting: "PM" });
     }
   }, {
+    key: "cancelTimePick",
+    value: function cancelTimePick() {
+      if (this.state.isTimerPickerShowed) {
+        document.getElementById("clockTimeWarpper").style.height = "80px";
+        document.getElementById("timePickerPopup").style.visibility = "hidden";
+        document.getElementById("timePickerPopup").style.opacity = 0;
+        this.setState({ isTimerPickerShowed: false });
+        this.setState({ hoursSetting: "00" });
+        this.setState({ minutesSetting: "00" });
+        this.setState({ twelveHourSetting: "AM" });
+
+        document.getElementById("hourUpArrow").style.borderBottom = "15px solid #000";
+        document.getElementById("hourDownArrow").style.borderTop = "15px solid #9e9e9e";
+
+        document.getElementById("minuteUpArrow").style.borderBottom = "15px solid #000";
+        document.getElementById("minuteDownArrow").style.borderTop = "15px solid #9e9e9e";
+
+        document.getElementById("hourClockUpArrow").style.borderBottom = "15px solid #000";
+        document.getElementById("hourClockDownArrow").style.borderTop = "15px solid #9e9e9e";
+      }
+    }
+  }, {
+    key: "confirmClockTime",
+    value: function confirmClockTime() {
+      var hours = this.state.hoursSetting;
+      var minutes = this.state.minutesSetting;
+      var twelveHourSetting = this.state.twelveHourSetting;
+      console.log(hours + " : " + minutes + " " + twelveHourSetting);
+    }
+  }, {
     key: "render",
     value: function render() {
       var settingsShow = this.state.clockSettingShow ? React.createElement(
@@ -22008,7 +22039,9 @@ var Clock = function (_React$Component) {
             React.createElement(
               "div",
               { className: "timePickerHeading" },
-              "Time Picker"
+              "Time Picker",
+              React.createElement("div", { id: "confirm", onClick: this.confirmClockTime.bind(this) }),
+              React.createElement("div", { id: "cancel", onClick: this.cancelTimePick.bind(this) })
             ),
             React.createElement(
               "div",

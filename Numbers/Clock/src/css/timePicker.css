@@ -10,22 +10,48 @@
 
 .timePickerHeading
 {
-  width: 300px;
+  width: 280px;
   background-color: #00897b;
   font-size: 30px;
   height: 50px;
   line-height: 50px;
   font-family: 'Lato', serif;
   color: #fff;
-  padding-left: 10px;
+  padding-left: 30px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   text-shadow: none;
-  text-align: center;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  position: relative;
+}
+
+#confirm
+{
+  width:28px;
+  height: 28px;
+  background: url("../images/confirm.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position:absolute;
+  right: 45px;
+  top:10px;
+  cursor: pointer;
+}
+
+#cancel
+{
+  width:33px;
+  height: 33px;
+  background: url("../images/cancel.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  position:absolute;
+  right: 5px;
+  top:8px;
+  cursor: pointer;
 }
 
 .picker

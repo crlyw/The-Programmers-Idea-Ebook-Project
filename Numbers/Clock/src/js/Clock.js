@@ -46,7 +46,9 @@ class Clock extends React.Component {
             isTimerPickerShowed:false,
             hoursSetting:"00",
             minutesSetting:"00",
-            twelveHourSetting:"AM"
+            twelveHourSetting:"AM",
+            isClockTimeSetted:false,
+            clockTime:""
         };
     };
 
@@ -116,7 +118,7 @@ class Clock extends React.Component {
     addHours(){
       document.getElementById("hourDownArrow").style.borderTop="15px solid #000";
       var hours = parseInt(this.state.hoursSetting);
-      if(hours===23){
+      if(hours===11){
         document.getElementById("hourUpArrow").style.borderBottom="15px solid #9e9e9e";
         return;
       }
@@ -126,7 +128,7 @@ class Clock extends React.Component {
       }else{
         hours = "" + hours;
       }
-      if(parseInt(hours)===23){
+      if(parseInt(hours)===11){
         document.getElementById("hourUpArrow").style.borderBottom="15px solid #9e9e9e";
         this.setState({hoursSetting : hours});
         return;
@@ -219,6 +221,35 @@ class Clock extends React.Component {
       this.setState({twelveHourSetting:"PM"});
     }
 
+    cancelTimePick(){
+      if(this.state.isTimerPickerShowed){
+        document.getElementById("clockTimeWarpper").style.height="80px";
+        document.getElementById("timePickerPopup").style.visibility="hidden";
+        document.getElementById("timePickerPopup").style.opacity=0;
+        this.setState({isTimerPickerShowed:false});
+        this.setState({hoursSetting:"00"});
+        this.setState({minutesSetting:"00"});
+        this.setState({twelveHourSetting:"AM"});
+
+        //Reset
+        document.getElementById("hourUpArrow").style.borderBottom="15px solid #000";
+        document.getElementById("hourDownArrow").style.borderTop="15px solid #9e9e9e";
+
+        document.getElementById("minuteUpArrow").style.borderBottom="15px solid #000";
+        document.getElementById("minuteDownArrow").style.borderTop="15px solid #9e9e9e";
+
+        document.getElementById("hourClockUpArrow").style.borderBottom="15px solid #000";
+        document.getElementById("hourClockDownArrow").style.borderTop="15px solid #9e9e9e";
+      }
+    }
+
+    confirmClockTime(){
+      var hours = this.state.hoursSetting;
+      var minutes = this.state.minutesSetting;
+      var twelveHourSetting = this.state.twelveHourSetting;
+      console.log(hours + " : " + minutes + " " + twelveHourSetting);
+    }
+
     render() {
         const settingsShow = this.state.clockSettingShow?
         <div>
@@ -251,7 +282,11 @@ class Clock extends React.Component {
                 {timeMeasure}
               </div>
               <div id="timePickerPopup" className="timePickerWrapper">
-                <div className="timePickerHeading">Time Picker</div>
+                <div className="timePickerHeading">
+                  Time Picker
+                  <div id="confirm" onClick={this.confirmClockTime.bind(this)}></div>
+                  <div id="cancel" onClick={this.cancelTimePick.bind(this)}></div>
+                </div>
                 <div className="timePickerContent">
 
                   <div className="hour picker">
