@@ -130,6 +130,8 @@ span:hover {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    height: 80px;
+    transition: height 0.5s linear;
 }
 
 i {

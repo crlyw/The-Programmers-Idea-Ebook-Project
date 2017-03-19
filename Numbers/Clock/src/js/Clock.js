@@ -43,7 +43,10 @@ class Clock extends React.Component {
             clockSettingShow:false,
             isTwentyFourHours:true,
             isTwelveHoursAM:true,
-            isTimerPickerShowed:false
+            isTimerPickerShowed:false,
+            hoursSetting:"00",
+            minutesSetting:"00",
+            twelveHourSetting:"AM"
         };
     };
 
@@ -98,14 +101,122 @@ class Clock extends React.Component {
 
     popUpTimePicker(){
       if(!this.state.isTimerPickerShowed){
+        document.getElementById("clockTimeWarpper").style.height="280px";
         document.getElementById("timePickerPopup").style.visibility="visible";
         document.getElementById("timePickerPopup").style.opacity=1;
         this.setState({isTimerPickerShowed:true});
       }else{
+        document.getElementById("clockTimeWarpper").style.height="80px";
         document.getElementById("timePickerPopup").style.visibility="hidden";
         document.getElementById("timePickerPopup").style.opacity=0;
         this.setState({isTimerPickerShowed:false});
       }
+    }
+
+    addHours(){
+      document.getElementById("hourDownArrow").style.borderTop="15px solid #000";
+      var hours = parseInt(this.state.hoursSetting);
+      if(hours===23){
+        document.getElementById("hourUpArrow").style.borderBottom="15px solid #9e9e9e";
+        return;
+      }
+      hours = hours + 1;
+      if(hours<10){
+        hours = "0" +hours;
+      }else{
+        hours = "" + hours;
+      }
+      if(parseInt(hours)===23){
+        document.getElementById("hourUpArrow").style.borderBottom="15px solid #9e9e9e";
+        this.setState({hoursSetting : hours});
+        return;
+      }
+      this.setState({hoursSetting : hours});
+    }
+
+    subtractHours(){
+      var hours = parseInt(this.state.hoursSetting);
+      if(hours===0){
+        document.getElementById("hourDownArrow").style.borderTop="15px solid #9e9e9e";
+        return;
+      }
+      document.getElementById("hourUpArrow").style.borderBottom="15px solid #000";
+      hours = hours - 1;
+      if(hours<10){
+        hours = "0" +hours;
+      }else{
+        hours = "" + hours;
+      }
+      if(parseInt(hours)===0){
+        document.getElementById("hourDownArrow").style.borderTop="15px solid #9e9e9e";
+        this.setState({hoursSetting : hours});
+        return;
+      }
+      this.setState({hoursSetting : hours});
+    }
+
+    addMinutes(){
+      document.getElementById("minuteDownArrow").style.borderTop="15px solid #000";
+      var minutes = parseInt(this.state.minutesSetting);
+      if(minutes===59){
+        document.getElementById("minuteUpArrow").style.borderBottom="15px solid #9e9e9e";
+        return;
+      }
+      minutes = minutes + 1;
+      if(minutes<10){
+        minutes = "0" +minutes;
+      }else{
+        minutes = "" + minutes;
+      }
+      if(parseInt(minutes)===59){
+        document.getElementById("minuteUpArrow").style.borderBottom="15px solid #9e9e9e";
+        this.setState({minutesSetting : minutes});
+        return;
+      }
+      this.setState({minutesSetting : minutes});
+    }
+
+    subtractMinutes(){
+      var minutes = parseInt(this.state.minutesSetting);
+      if(minutes===0){
+        document.getElementById("minuteDownArrow").style.borderTop="15px solid #9e9e9e";
+        return;
+      }
+      document.getElementById("minuteUpArrow").style.borderBottom="15px solid #000";
+      minutes = minutes - 1;
+      if(minutes<10){
+        minutes = "0" +minutes;
+      }else{
+        minutes = "" + minutes;
+      }
+      if(parseInt(minutes)===0){
+        document.getElementById("minuteDownArrow").style.borderTop="15px solid #9e9e9e";
+        this.setState({minutesSetting : minutes});
+        return;
+      }
+      this.setState({minutesSetting : minutes});
+    }
+
+    twelveHourChangeToAM(){
+      if(this.state.twelveHourSetting=="AM"){
+        document.getElementById("hourClockUpArrow").style.borderBottom="15px solid #000";
+        document.getElementById("hourClockDownArrow").style.borderTop="15px solid #9e9e9e";
+        return;
+      }
+      document.getElementById("hourClockUpArrow").style.borderBottom="15px solid #000";
+      document.getElementById("hourClockDownArrow").style.borderTop="15px solid #9e9e9e";
+      this.setState({twelveHourSetting:"AM"});
+    }
+
+    twelveHourChangeToPM(){
+      if(this.state.twelveHourSetting=="PM"){
+        document.getElementById("hourClockUpArrow").style.borderBottom="15px solid #9e9e9e";
+        document.getElementById("hourClockDownArrow").style.borderTop="15px solid #000";
+        return;
+      }
+      document.getElementById("hourClockUpArrow").style.borderBottom="15px solid #9e9e9e";
+      document.getElementById("hourClockDownArrow").style.borderTop="15px solid #000";
+      this.setState({twelveHourSetting:"PM"});
     }
 
     render() {
@@ -121,7 +232,7 @@ class Clock extends React.Component {
 
         return (
           <div className="wrapper">
-            <div className="clocktime">
+            <div id="clockTimeWarpper" className="clocktime">
               <div className="timeMeasurePicker">
                 <span id="picker1" href="#" className="timeMeasurePicker1" onClick={this.timeMeasurePicker1StyleChange.bind(this)}>
                   12
@@ -145,31 +256,31 @@ class Clock extends React.Component {
 
                   <div className="hour picker">
                     <div className="hourUpArrow">
-                      <div className="upArrow"></div>
+                      <div id="hourUpArrow" className="upArrow" onClick={this.addHours.bind(this)}></div>
                     </div>
-                    <div className="hourText text">00</div>
+                    <div className="hourText text">{this.state.hoursSetting}</div>
                     <div className="hourDownArrow">
-                      <div className="downArrow"></div>
+                      <div id="hourDownArrow" className="downArrow" onClick={this.subtractHours.bind(this)}></div>
                     </div>
                   </div>
 
                   <div className="minute picker">
                     <div className="minuteUpArrow">
-                      <div className="upArrow"></div>
+                      <div id="minuteUpArrow" className="upArrow" onClick={this.addMinutes.bind(this)}></div>
                     </div>
-                    <div className="minuteText text">00</div>
+                    <div className="minuteText text">{this.state.minutesSetting}</div>
                     <div className="minuteDownArrow">
-                      <div className="downArrow"></div>
+                      <div id="minuteDownArrow" className="downArrow" onClick={this.subtractMinutes.bind(this)}></div>
                     </div>
                   </div>
 
                   <div className="hourClock picker">
                     <div className="hourClockUpArrow">
-                      <div className="upArrow"></div>
+                      <div id="hourClockUpArrow" className="upArrow" onClick={this.twelveHourChangeToPM.bind(this)}></div>
                     </div>
-                    <div className="hourClockText text">AM</div>
+                    <div className="hourClockText text">{this.state.twelveHourSetting}</div>
                     <div className="hourClockDownArrow">
-                      <div className="downArrow"></div>
+                      <div id="hourClockDownArrow" className="downArrow" onClick={this.twelveHourChangeToAM.bind(this)}></div>
                     </div>
                   </div>
 

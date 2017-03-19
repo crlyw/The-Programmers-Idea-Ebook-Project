@@ -21743,7 +21743,10 @@ var Clock = function (_React$Component) {
       clockSettingShow: false,
       isTwentyFourHours: true,
       isTwelveHoursAM: true,
-      isTimerPickerShowed: false
+      isTimerPickerShowed: false,
+      hoursSetting: "00",
+      minutesSetting: "00",
+      twelveHourSetting: "AM"
     };
     return _this;
   }
@@ -21816,14 +21819,128 @@ var Clock = function (_React$Component) {
     key: "popUpTimePicker",
     value: function popUpTimePicker() {
       if (!this.state.isTimerPickerShowed) {
+        document.getElementById("clockTimeWarpper").style.height = "280px";
         document.getElementById("timePickerPopup").style.visibility = "visible";
         document.getElementById("timePickerPopup").style.opacity = 1;
         this.setState({ isTimerPickerShowed: true });
       } else {
+        document.getElementById("clockTimeWarpper").style.height = "80px";
         document.getElementById("timePickerPopup").style.visibility = "hidden";
         document.getElementById("timePickerPopup").style.opacity = 0;
         this.setState({ isTimerPickerShowed: false });
       }
+    }
+  }, {
+    key: "addHours",
+    value: function addHours() {
+      document.getElementById("hourDownArrow").style.borderTop = "15px solid #000";
+      var hours = parseInt(this.state.hoursSetting);
+      if (hours === 23) {
+        document.getElementById("hourUpArrow").style.borderBottom = "15px solid #9e9e9e";
+        return;
+      }
+      hours = hours + 1;
+      if (hours < 10) {
+        hours = "0" + hours;
+      } else {
+        hours = "" + hours;
+      }
+      if (parseInt(hours) === 23) {
+        document.getElementById("hourUpArrow").style.borderBottom = "15px solid #9e9e9e";
+        this.setState({ hoursSetting: hours });
+        return;
+      }
+      this.setState({ hoursSetting: hours });
+    }
+  }, {
+    key: "subtractHours",
+    value: function subtractHours() {
+      var hours = parseInt(this.state.hoursSetting);
+      if (hours === 0) {
+        document.getElementById("hourDownArrow").style.borderTop = "15px solid #9e9e9e";
+        return;
+      }
+      document.getElementById("hourUpArrow").style.borderBottom = "15px solid #000";
+      hours = hours - 1;
+      if (hours < 10) {
+        hours = "0" + hours;
+      } else {
+        hours = "" + hours;
+      }
+      if (parseInt(hours) === 0) {
+        document.getElementById("hourDownArrow").style.borderTop = "15px solid #9e9e9e";
+        this.setState({ hoursSetting: hours });
+        return;
+      }
+      this.setState({ hoursSetting: hours });
+    }
+  }, {
+    key: "addMinutes",
+    value: function addMinutes() {
+      document.getElementById("minuteDownArrow").style.borderTop = "15px solid #000";
+      var minutes = parseInt(this.state.minutesSetting);
+      if (minutes === 59) {
+        document.getElementById("minuteUpArrow").style.borderBottom = "15px solid #9e9e9e";
+        return;
+      }
+      minutes = minutes + 1;
+      if (minutes < 10) {
+        minutes = "0" + minutes;
+      } else {
+        minutes = "" + minutes;
+      }
+      if (parseInt(minutes) === 59) {
+        document.getElementById("minuteUpArrow").style.borderBottom = "15px solid #9e9e9e";
+        this.setState({ minutesSetting: minutes });
+        return;
+      }
+      this.setState({ minutesSetting: minutes });
+    }
+  }, {
+    key: "subtractMinutes",
+    value: function subtractMinutes() {
+      var minutes = parseInt(this.state.minutesSetting);
+      if (minutes === 0) {
+        document.getElementById("minuteDownArrow").style.borderTop = "15px solid #9e9e9e";
+        return;
+      }
+      document.getElementById("minuteUpArrow").style.borderBottom = "15px solid #000";
+      minutes = minutes - 1;
+      if (minutes < 10) {
+        minutes = "0" + minutes;
+      } else {
+        minutes = "" + minutes;
+      }
+      if (parseInt(minutes) === 0) {
+        document.getElementById("minuteDownArrow").style.borderTop = "15px solid #9e9e9e";
+        this.setState({ minutesSetting: minutes });
+        return;
+      }
+      this.setState({ minutesSetting: minutes });
+    }
+  }, {
+    key: "twelveHourChangeToAM",
+    value: function twelveHourChangeToAM() {
+      if (this.state.twelveHourSetting == "AM") {
+        document.getElementById("hourClockUpArrow").style.borderBottom = "15px solid #000";
+        document.getElementById("hourClockDownArrow").style.borderTop = "15px solid #9e9e9e";
+        return;
+      }
+      document.getElementById("hourClockUpArrow").style.borderBottom = "15px solid #000";
+      document.getElementById("hourClockDownArrow").style.borderTop = "15px solid #9e9e9e";
+      this.setState({ twelveHourSetting: "AM" });
+    }
+  }, {
+    key: "twelveHourChangeToPM",
+    value: function twelveHourChangeToPM() {
+      if (this.state.twelveHourSetting == "PM") {
+        document.getElementById("hourClockUpArrow").style.borderBottom = "15px solid #9e9e9e";
+        document.getElementById("hourClockDownArrow").style.borderTop = "15px solid #000";
+        return;
+      }
+      document.getElementById("hourClockUpArrow").style.borderBottom = "15px solid #9e9e9e";
+      document.getElementById("hourClockDownArrow").style.borderTop = "15px solid #000";
+      this.setState({ twelveHourSetting: "PM" });
     }
   }, {
     key: "render",
@@ -21845,7 +21962,7 @@ var Clock = function (_React$Component) {
         { className: "wrapper" },
         React.createElement(
           "div",
-          { className: "clocktime" },
+          { id: "clockTimeWarpper", className: "clocktime" },
           React.createElement(
             "div",
             { className: "timeMeasurePicker" },
@@ -21902,17 +22019,17 @@ var Clock = function (_React$Component) {
                 React.createElement(
                   "div",
                   { className: "hourUpArrow" },
-                  React.createElement("div", { className: "upArrow" })
+                  React.createElement("div", { id: "hourUpArrow", className: "upArrow", onClick: this.addHours.bind(this) })
                 ),
                 React.createElement(
                   "div",
                   { className: "hourText text" },
-                  "00"
+                  this.state.hoursSetting
                 ),
                 React.createElement(
                   "div",
                   { className: "hourDownArrow" },
-                  React.createElement("div", { className: "downArrow" })
+                  React.createElement("div", { id: "hourDownArrow", className: "downArrow", onClick: this.subtractHours.bind(this) })
                 )
               ),
               React.createElement(
@@ -21921,17 +22038,17 @@ var Clock = function (_React$Component) {
                 React.createElement(
                   "div",
                   { className: "minuteUpArrow" },
-                  React.createElement("div", { className: "upArrow" })
+                  React.createElement("div", { id: "minuteUpArrow", className: "upArrow", onClick: this.addMinutes.bind(this) })
                 ),
                 React.createElement(
                   "div",
                   { className: "minuteText text" },
-                  "00"
+                  this.state.minutesSetting
                 ),
                 React.createElement(
                   "div",
                   { className: "minuteDownArrow" },
-                  React.createElement("div", { className: "downArrow" })
+                  React.createElement("div", { id: "minuteDownArrow", className: "downArrow", onClick: this.subtractMinutes.bind(this) })
                 )
               ),
               React.createElement(
@@ -21940,17 +22057,17 @@ var Clock = function (_React$Component) {
                 React.createElement(
                   "div",
                   { className: "hourClockUpArrow" },
-                  React.createElement("div", { className: "upArrow" })
+                  React.createElement("div", { id: "hourClockUpArrow", className: "upArrow", onClick: this.twelveHourChangeToPM.bind(this) })
                 ),
                 React.createElement(
                   "div",
                   { className: "hourClockText text" },
-                  "AM"
+                  this.state.twelveHourSetting
                 ),
                 React.createElement(
                   "div",
                   { className: "hourClockDownArrow" },
-                  React.createElement("div", { className: "downArrow" })
+                  React.createElement("div", { id: "hourClockDownArrow", className: "downArrow", onClick: this.twelveHourChangeToAM.bind(this) })
                 )
               )
             )
