@@ -220,3 +220,54 @@ i {
     border-style: solid;
     border-color: black transparent transparent transparent;
 }
+
+.clockTime
+{
+  position: absolute;
+  right: -2px;
+  top: -60px;
+  color: red;
+  text-shadow: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s linear;
+}
+
+.clockTime:hover .tooltiptext {
+    visibility: visible;
+    left: -72px;
+    bottom: -48px;
+    opacity: 1;
+}
+
+.clockTimeIcon .tooltiptext {
+    visibility: hidden;
+    font-size: 12px;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    text-shadow: none;
+    font-family: 'Lato', serif;
+    /*Animation to show and hide*/
+    transition: all 0.3s linear;
+    left: -72px;
+    bottom: -30px;
+    opacity: 0;
+}
+
+.clockTimeIcon .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 100%;
+    /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}

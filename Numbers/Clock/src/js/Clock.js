@@ -47,7 +47,7 @@ class Clock extends React.Component {
             hoursSetting:"00",
             minutesSetting:"00",
             twelveHourSetting:"AM",
-            isClockTimeSetted:false,
+            isClockTimeSetted:true,
             clockTime:""
         };
     };
@@ -248,6 +248,8 @@ class Clock extends React.Component {
       var minutes = this.state.minutesSetting;
       var twelveHourSetting = this.state.twelveHourSetting;
       console.log(hours + " : " + minutes + " " + twelveHourSetting);
+      document.getElementById("clockTime").style.visibility="visible";
+      document.getElementById("clockTime").style.opacity = 1;
     }
 
     render() {
@@ -260,10 +262,20 @@ class Clock extends React.Component {
 
         const timeMeasure = this.timeJudge();
 
+        const clockTimeSetted = this.state.isClockTimeSetted?
+        <div id="clockTime" className="clockTime">
+          <span className="clockTimeIcon">
+            <i className="fa fa-clock-o fa-2x" aria-hidden="true"></i>
+            <span id="picker1ToolTip" className="tooltiptext">Clock will alarm at 11:00 AM</span>
+          </span>
+        </div>
+        :
+        "";
 
         return (
           <div className="wrapper">
             <div id="clockTimeWarpper" className="clocktime">
+              {clockTimeSetted}
               <div className="timeMeasurePicker">
                 <span id="picker1" href="#" className="timeMeasurePicker1" onClick={this.timeMeasurePicker1StyleChange.bind(this)}>
                   12
