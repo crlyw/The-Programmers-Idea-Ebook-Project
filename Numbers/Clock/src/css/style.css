@@ -8,6 +8,12 @@
     src: url('../fonts/Komoda/Komoda.otf');
 }
 
+@-webkit-keyframes myScale {
+    0%   {transform: scale(1, 1);}
+    50%  {transform: scale(1.5, 1.5);}
+    100% {transform: scale(1, 1);}
+}
+
 body {
     background: url("../images/backgroundImage.jpg");
 }
@@ -221,19 +227,17 @@ i {
     border-color: black transparent transparent transparent;
 }
 
-.clockTime
+.myClockTime
 {
   position: absolute;
   right: -2px;
   top: -60px;
   color: red;
   text-shadow: none;
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.5s linear;
+  display: none;
 }
 
-.clockTime:hover .tooltiptext {
+.myClockTime:hover .tooltiptext {
     visibility: visible;
     left: -72px;
     bottom: -48px;
@@ -270,4 +274,43 @@ i {
     border-width: 5px;
     border-style: solid;
     border-color: black transparent transparent transparent;
+}
+
+.mask
+{
+  position: absolute;
+  z-index: 998;
+  background-color: #00897b;
+  border: 2px solid #fff!important;
+  border-radius: 15px!important;
+  margin-left: -13px;
+  margin-top: -13px;
+  width: 520px;
+  height: 126px;
+  opacity: 1;
+  font-family: 'Lato', serif;
+  font-size: 25px;
+  padding: 20px;
+  color: #fff;
+  white-space: normal;
+}
+
+.mask .yesButton
+{
+  background-color: #00897b;
+  border: 3px solid #fff!important;
+  border-radius: 10px!important;
+  padding: 5px 20px;
+  margin-top: 25px;
+  margin-left: 150px;
+}
+
+.mask .noButton
+{
+  background-color: #00897b;
+  border: 3px solid #fff!important;
+  border-radius: 10px!important;
+  padding: 5px 20px;
+  margin-top: 25px;
+  margin-left: 80px;
 }

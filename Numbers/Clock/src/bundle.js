@@ -9523,7 +9523,8 @@ var Clock = function (_React$Component) {
       minutesSetting: "00",
       twelveHourSetting: "AM",
       isClockTimeSetted: true,
-      clockTime: ""
+      clockTime: "",
+      masker: true
     };
     return _this;
   }
@@ -9595,6 +9596,7 @@ var Clock = function (_React$Component) {
   }, {
     key: "popUpTimePicker",
     value: function popUpTimePicker() {
+      if (this.state.clockTime != "") {}
       if (!this.state.isTimerPickerShowed) {
         document.getElementById("clockTimeWarpper").style.height = "280px";
         document.getElementById("timePickerPopup").style.visibility = "visible";
@@ -9748,9 +9750,10 @@ var Clock = function (_React$Component) {
       var hours = this.state.hoursSetting;
       var minutes = this.state.minutesSetting;
       var twelveHourSetting = this.state.twelveHourSetting;
-      console.log(hours + " : " + minutes + " " + twelveHourSetting);
-      document.getElementById("clockTime").style.visibility = "visible";
-      document.getElementById("clockTime").style.opacity = 1;
+      this.setState({ clockTime: hours + " : " + minutes + " " + twelveHourSetting });
+      document.getElementById("clockTime").style.display = "block";
+      document.getElementById("clockTime").style.animation = "myScale 1.2s";
+      this.cancelTimePick();
     }
   }, {
     key: "render",
@@ -9769,7 +9772,7 @@ var Clock = function (_React$Component) {
 
       var clockTimeSetted = this.state.isClockTimeSetted ? React.createElement(
         "div",
-        { id: "clockTime", className: "clockTime" },
+        { id: "clockTime", className: "myClockTime" },
         React.createElement(
           "span",
           { className: "clockTimeIcon" },
@@ -9777,14 +9780,36 @@ var Clock = function (_React$Component) {
           React.createElement(
             "span",
             { id: "picker1ToolTip", className: "tooltiptext" },
-            "Clock will alarm at 11:00 AM"
+            "Clock will alarm at",
+            React.createElement("br", null),
+            this.state.clockTime
           )
         )
       ) : "";
 
+      var masker = this.state.masker ? React.createElement(
+        "div",
+        { className: "mask" },
+        React.createElement(
+          "div",
+          { className: "maskHeading" },
+          "You've already setted the alarm time, would you want to cancel it?"
+        ),
+        React.createElement(
+          "span",
+          { className: "yesButton" },
+          "YES"
+        ),
+        React.createElement(
+          "span",
+          { className: "noButton" },
+          "NO"
+        )
+      ) : "";
       return React.createElement(
         "div",
         { className: "wrapper" },
+        masker,
         React.createElement(
           "div",
           { id: "clockTimeWarpper", className: "clocktime" },

@@ -48,7 +48,8 @@ class Clock extends React.Component {
             minutesSetting:"00",
             twelveHourSetting:"AM",
             isClockTimeSetted:true,
-            clockTime:""
+            clockTime:"",
+            masker:true
         };
     };
 
@@ -102,6 +103,9 @@ class Clock extends React.Component {
     }
 
     popUpTimePicker(){
+      if(this.state.clockTime!=""){
+
+      }
       if(!this.state.isTimerPickerShowed){
         document.getElementById("clockTimeWarpper").style.height="280px";
         document.getElementById("timePickerPopup").style.visibility="visible";
@@ -247,9 +251,10 @@ class Clock extends React.Component {
       var hours = this.state.hoursSetting;
       var minutes = this.state.minutesSetting;
       var twelveHourSetting = this.state.twelveHourSetting;
-      console.log(hours + " : " + minutes + " " + twelveHourSetting);
-      document.getElementById("clockTime").style.visibility="visible";
-      document.getElementById("clockTime").style.opacity = 1;
+      this.setState({clockTime:hours + " : " + minutes + " " + twelveHourSetting});
+      document.getElementById("clockTime").style.display = "block";
+      document.getElementById("clockTime").style.animation = "myScale 1.2s";
+      this.cancelTimePick();
     }
 
     render() {
@@ -263,17 +268,28 @@ class Clock extends React.Component {
         const timeMeasure = this.timeJudge();
 
         const clockTimeSetted = this.state.isClockTimeSetted?
-        <div id="clockTime" className="clockTime">
+        <div id="clockTime" className="myClockTime">
           <span className="clockTimeIcon">
             <i className="fa fa-clock-o fa-2x" aria-hidden="true"></i>
-            <span id="picker1ToolTip" className="tooltiptext">Clock will alarm at 11:00 AM</span>
+            <span id="picker1ToolTip" className="tooltiptext">Clock will alarm at<br/>{this.state.clockTime}</span>
           </span>
         </div>
         :
         "";
 
+        const masker = this.state.masker?
+        <div className="mask">
+          <div className="maskHeading">
+            You've already setted the alarm time, would you want to cancel it?
+          </div>
+          <span className="yesButton">YES</span>
+          <span className="noButton">NO</span>
+        </div>
+        :
+        "";
         return (
           <div className="wrapper">
+            {masker}
             <div id="clockTimeWarpper" className="clocktime">
               {clockTimeSetted}
               <div className="timeMeasurePicker">
