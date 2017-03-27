@@ -285,14 +285,16 @@ i {
   border-radius: 15px!important;
   margin-left: -13px;
   margin-top: -13px;
-  width: 520px;
-  height: 126px;
+  width: 483px;
+  height: 90px;
+  visibility: visible;
   opacity: 1;
   font-family: 'Lato', serif;
   font-size: 25px;
   padding: 20px;
   color: #fff;
-  white-space: normal;
+  white-space:normal;
+  transition: all 1s linear;
 }
 
 .mask .yesButton
@@ -301,8 +303,8 @@ i {
   border: 3px solid #fff!important;
   border-radius: 10px!important;
   padding: 5px 20px;
-  margin-top: 25px;
-  margin-left: 150px;
+  margin-top: 5px;
+  margin-left: 120px;
 }
 
 .mask .noButton
@@ -311,6 +313,6 @@ i {
   border: 3px solid #fff!important;
   border-radius: 10px!important;
   padding: 5px 20px;
-  margin-top: 25px;
-  margin-left: 80px;
+  margin-top: 5px;
+  margin-left: 100px;
 }

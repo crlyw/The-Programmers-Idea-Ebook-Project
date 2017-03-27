@@ -9524,7 +9524,7 @@ var Clock = function (_React$Component) {
       twelveHourSetting: "AM",
       isClockTimeSetted: true,
       clockTime: "",
-      masker: true
+      masker: false
     };
     return _this;
   }
@@ -9596,7 +9596,11 @@ var Clock = function (_React$Component) {
   }, {
     key: "popUpTimePicker",
     value: function popUpTimePicker() {
-      if (this.state.clockTime != "") {}
+      if (this.state.clockTime != "") {
+        this.setState({ masker: true });
+        console.log("you are here now!");
+        return;
+      }
       if (!this.state.isTimerPickerShowed) {
         document.getElementById("clockTimeWarpper").style.height = "280px";
         document.getElementById("timePickerPopup").style.visibility = "visible";
@@ -9756,6 +9760,36 @@ var Clock = function (_React$Component) {
       this.cancelTimePick();
     }
   }, {
+    key: "comfirmCancel",
+    value: function comfirmCancel() {
+      document.getElementById("clockTimeWarpper").style.height = "80px";
+      document.getElementById("timePickerPopup").style.visibility = "hidden";
+      document.getElementById("timePickerPopup").style.opacity = 0;
+      this.setState({ isTimerPickerShowed: false });
+      this.setState({ hoursSetting: "00" });
+      this.setState({ minutesSetting: "00" });
+      this.setState({ twelveHourSetting: "AM" });
+      this.setState({ masker: false });
+      this.setState({ clockTime: "" });
+
+      //Reset
+      document.getElementById("clockTime").style.display = "none";
+
+      document.getElementById("hourUpArrow").style.borderBottom = "15px solid #000";
+      document.getElementById("hourDownArrow").style.borderTop = "15px solid #9e9e9e";
+
+      document.getElementById("minuteUpArrow").style.borderBottom = "15px solid #000";
+      document.getElementById("minuteDownArrow").style.borderTop = "15px solid #9e9e9e";
+
+      document.getElementById("hourClockUpArrow").style.borderBottom = "15px solid #000";
+      document.getElementById("hourClockDownArrow").style.borderTop = "15px solid #9e9e9e";
+    }
+  }, {
+    key: "comfirmNotCancel",
+    value: function comfirmNotCancel() {
+      this.setState({ masker: false });
+    }
+  }, {
     key: "render",
     value: function render() {
       var settingsShow = this.state.clockSettingShow ? React.createElement(
@@ -9789,20 +9823,20 @@ var Clock = function (_React$Component) {
 
       var masker = this.state.masker ? React.createElement(
         "div",
-        { className: "mask" },
+        { id: "mask", className: "mask" },
         React.createElement(
           "div",
           { className: "maskHeading" },
-          "You've already setted the alarm time, would you want to cancel it?"
+          "You have already setted the alarm time, do you want to cancel it?"
         ),
         React.createElement(
           "span",
-          { className: "yesButton" },
+          { className: "yesButton", onClick: this.comfirmCancel.bind(this) },
           "YES"
         ),
         React.createElement(
           "span",
-          { className: "noButton" },
+          { className: "noButton", onClick: this.comfirmNotCancel.bind(this) },
           "NO"
         )
       ) : "";
