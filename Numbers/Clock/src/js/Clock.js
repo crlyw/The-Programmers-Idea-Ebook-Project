@@ -34,6 +34,34 @@ class Clock extends React.Component {
         this.setState({
             currentTime: result
         });
+
+        if(this.checkAlarmTime()){
+          document.getElementById("audio").play();
+          setTimeout(() => {
+              document.getElementById("audio").pause();
+          }, 20000);
+        }
+    }
+
+    checkAlarmTime(){
+      var hours = parseInt(this.state.currentTime.split(":")[0]);
+      var minutes = parseInt(this.state.currentTime.split(":")[1]);
+      var secounds = parseInt(this.state.currentTime.split(":")[2]);
+      if(!this.state.isTwelveHoursAM){
+        hours = hours + 12;
+      }
+      if(this.state.clockTime!=""){
+        var clockHours = parseInt(this.state.clockTime.split(":")[0]);
+        var clockMinutes = parseInt(this.state.clockTime.split(":")[1]);
+        if(this.state.clockTime.includes("PM")){
+          clockHours = clockHours+12;
+        }
+      }
+
+      if(hours == clockHours && minutes == clockMinutes && secounds == 0){
+        return true;
+      }
+      return false;
     }
 
     constructor() {
@@ -48,8 +76,7 @@ class Clock extends React.Component {
             minutesSetting:"00",
             twelveHourSetting:"AM",
             isClockTimeSetted:true,
-            clockTime:"",
-            masker:false
+            clockTime:""
         };
     };
 
@@ -104,8 +131,7 @@ class Clock extends React.Component {
 
     popUpTimePicker(){
       if(this.state.clockTime!=""){
-        this.setState({masker:true});
-        console.log("you are here now!");
+        document.getElementById("mask").style.visibility="visible";
         return;
       }
       if(!this.state.isTimerPickerShowed){
@@ -267,8 +293,9 @@ class Clock extends React.Component {
       this.setState({hoursSetting:"00"});
       this.setState({minutesSetting:"00"});
       this.setState({twelveHourSetting:"AM"});
-      this.setState({masker:false});
       this.setState({clockTime:""});
+
+      document.getElementById("mask").style.visibility="hidden";
 
       //Reset
       document.getElementById("clockTime").style.display = "none";
@@ -284,7 +311,7 @@ class Clock extends React.Component {
     }
 
     comfirmNotCancel(){
-      this.setState({masker:false});
+      document.getElementById("mask").style.visibility="hidden";
     }
 
     render() {
@@ -307,19 +334,8 @@ class Clock extends React.Component {
         :
         "";
 
-        const masker = this.state.masker?
-        <div id="mask" className="mask">
-          <div className="maskHeading">
-            You have already setted the alarm time, do you want to cancel it?
-          </div>
-          <span className="yesButton" onClick={this.comfirmCancel.bind(this)}>YES</span>
-          <span className="noButton" onClick={this.comfirmNotCancel.bind(this)}>NO</span>
-        </div>
-        :
-        "";
         return (
           <div className="wrapper">
-            {masker}
             <div id="clockTimeWarpper" className="clocktime">
               {clockTimeSetted}
               <div className="timeMeasurePicker">
@@ -376,9 +392,21 @@ class Clock extends React.Component {
                       <div id="hourClockDownArrow" className="downArrow" onClick={this.twelveHourChangeToAM.bind(this)}></div>
                     </div>
                   </div>
-
                 </div>
               </div>
+            </div>
+            <div id="mask" className="mask">
+              <div className="maskHeading">
+                You have already setted the alarm time, do you want to cancel it?
+              </div>
+              <span className="yesButton" onClick={this.comfirmCancel.bind(this)}>YES</span>
+              <span className="noButton" onClick={this.comfirmNotCancel.bind(this)}>NO</span>
+            </div>
+            <div className="audio">
+              <audio controls loop id="audio">
+                <source src="../src/audio/Pager_Beeps.mp3" type="audio/mpeg"/>
+                Your browser does not support the audio tag.
+              </audio>
             </div>
           </div>
         )
