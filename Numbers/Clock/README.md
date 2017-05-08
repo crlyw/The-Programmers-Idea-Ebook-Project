@@ -27,4 +27,4 @@ event is “overdue” and by how long.
 #### How to run it
 1. Run "npm install" in the directory folder, make sure you have all the dependencies installed.
 2. Import the project directory to the Atom Editor.
-3. Install the plugin for server, right click the index.html and select run on the server.
+3. Install the plugin for server, right click the index.html and select run on the server then you will see the main page should come out.
